@@ -4,5 +4,6 @@
       "target": "ES6"
     },
     "exclude": ["node_modules"],
-    "javascript.suggest.autoImports": true
+    "javascript.suggest.autoImports": true,
+    "javascript.suggestionActions.enabled": true
   }
