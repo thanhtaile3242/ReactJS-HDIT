@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import User from "./components/User/User.js";
 import Admin from "./components/Admin/Admin.js";
+import HomePage from "./components/Home/HomePage.js";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -14,9 +15,11 @@ root.render(
         {/* <React.StrictMode> */}
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/users" element={<User />} />
-                <Route path="/Admin" element={<Admin />} />
+                <Route path="/" element={<App />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="/users" element={<User />} />
+                    <Route path="/Admin" element={<Admin />} />
+                </Route>
             </Routes>
         </BrowserRouter>
         {/* </React.StrictMode> */}
