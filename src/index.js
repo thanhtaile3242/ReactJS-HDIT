@@ -4,6 +4,8 @@ import App from "./App";
 import User from "./components/User/User.js";
 import Admin from "./components/Admin/Admin.js";
 import HomePage from "./components/Home/HomePage.js";
+import ManageUser from "./components/Admin/Content/ManageUser.js";
+import DashBoard from "./components/Admin/Content/DashBoard.js";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -17,8 +19,11 @@ root.render(
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="/users" element={<User />} />
-                    <Route path="/Admin" element={<Admin />} />
+                    <Route path="users" element={<User />} />
+                </Route>
+                <Route path="admin" element={<Admin />}>
+                    <Route index element={<DashBoard />} />
+                    <Route path="manage-users" element={<ManageUser />} />
                 </Route>
             </Routes>
         </BrowserRouter>
@@ -26,7 +31,4 @@ root.render(
     </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
