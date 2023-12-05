@@ -35,6 +35,7 @@ const postLogin = async (userEmail, userPassword) => {
     return await axios.post("api/v1/login", {
         email: userEmail,
         password: userPassword,
+        deday: 5000,
     });
 };
 export {
