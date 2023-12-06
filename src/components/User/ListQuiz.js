@@ -44,10 +44,14 @@ const ListQuiz = (props) => {
                                         href="#"
                                         className="btn btn-primary"
                                         onClick={() => {
-                                            navigate(`/quiz/${quiz.id}`);
+                                            navigate(`/quiz/${quiz.id}`, {
+                                                state: {
+                                                    quizTitle: quiz.description,
+                                                },
+                                            });
                                         }}
                                     >
-                                        Strat Now
+                                        Start Now
                                     </button>
                                 </div>
                             </div>
