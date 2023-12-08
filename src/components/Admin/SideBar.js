@@ -8,7 +8,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     FaTachometerAlt,
     FaGem,
@@ -18,7 +18,6 @@ import {
     FaHeart,
 } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
-
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 
@@ -26,6 +25,7 @@ import "./SideBar.scss";
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const navigate = useNavigate();
     return (
         <>
             <ProSidebar
@@ -49,7 +49,13 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size={"3em"} color={"00bfff"} />
-                        <span>Hoi Dan IT</span>
+                        <span
+                            onClick={() => {
+                                navigate("/");
+                            }}
+                        >
+                            Hoi Dan IT
+                        </span>
                     </div>
                 </SidebarHeader>
 
@@ -66,8 +72,14 @@ const SideBar = (props) => {
                                 Quản lý Users
                                 <Link to="/admin/manage-users" />
                             </MenuItem>
-                            <MenuItem> Quản lý Bài Quiz</MenuItem>
-                            <MenuItem> Quản lý Câu Hỏi</MenuItem>
+                            <MenuItem>
+                                Quản lý Bài Quiz
+                                <Link to="/admin/manage-quizzes" />
+                            </MenuItem>
+                            <MenuItem>
+                                Quản lý Câu Hỏi
+                                <Link to="/admin/questions" />
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
