@@ -1,6 +1,6 @@
 import Select from "react-select";
 import { useState, useEffect } from "react";
-import "./Question.scss";
+import "./QuizQA.scss";
 import { BsFillPatchPlusFill, BsFillPatchMinusFill } from "react-icons/bs";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiImageAddFill } from "react-icons/ri";
@@ -14,7 +14,7 @@ import {
     postCreateNewAnswerForQuestion,
 } from "../../../../services/apiService.js";
 import { toast } from "react-toastify";
-const Questions = (props) => {
+const QuizQA = (props) => {
     const initQuestion = [
         {
             id: uuidv4(),
@@ -24,17 +24,14 @@ const Questions = (props) => {
             answers: [{ id: uuidv4(), description: "", isCorrect: false }],
         },
     ];
-    const [selectedQuiz, setSelectedQuiz] = useState({});
     const [dataImagePreview, setDataImagePreview] = useState({
         title: "",
         url: "",
     });
-    const [listQuiz, setListQuiz] = useState([]);
-
     const [questions, setQuestions] = useState(initQuestion);
-
     const [isPreviewImage, setIsPreviewImage] = useState(false);
-
+    const [listQuiz, setListQuiz] = useState([]);
+    const [selectedQuiz, setSelectedQuiz] = useState({});
     useEffect(() => {
         fetchQuiz();
     }, []);
@@ -232,8 +229,6 @@ const Questions = (props) => {
     return (
         <>
             <div className="questions-container">
-                <div className="title">Manage Questions</div>
-                <hr />
                 <div className="add-new-question">
                     <div className="col-6 form-group">
                         <label className="mb-2">Select Quiz</label>
@@ -452,4 +447,4 @@ const Questions = (props) => {
     );
 };
 
-export default Questions;
+export default QuizQA;
