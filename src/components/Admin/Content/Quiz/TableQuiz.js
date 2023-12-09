@@ -1,17 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllQuizForAdmin } from "../../../../services/apiService.js";
 const TableQuiz = (props) => {
-    const [listQuiz, setListQuiz] = useState([]);
-    useEffect(() => {
-        fetchQuiz();
-    }, []);
-
-    const fetchQuiz = async () => {
-        let res = await getAllQuizForAdmin();
-        if (res && res.EC === 0) {
-            setListQuiz(res.DT);
-        }
-    };
+    const { listQuiz } = props;
     return (
         <>
             <div>List Quizzes:</div>

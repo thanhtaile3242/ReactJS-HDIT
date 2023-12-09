@@ -1,10 +1,15 @@
 import "./ManageQuiz.scss";
 import Accordion from "react-bootstrap/Accordion";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableQuiz from "./TableQuiz.js";
 import QuizQA from "./QuizQA.js";
 import AssignQuiz from "./AssignQuiz.js";
+import {
+    postCreateNewQuiz,
+    getAllQuizForAdmin,
+} from "../../../../services/apiService.js";
+import { toast } from "react-toastify";
 const options = [
     { value: "EASY", label: "EASY" },
     { value: "MEDIUM", label: "MEDIUM" },
@@ -12,11 +17,53 @@ const options = [
 ];
 
 const ManageQuiz = (props) => {
+    const [listQuiz, setListQuiz] = useState([]);
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [type, setType] = useState("EASY");
+    const [type, setType] = useState("");
     const [image, setImage] = useState(null);
-    const handleChangeFile = (event) => {};
+
+    useEffect(() => {
+        fetchQuiz();
+    }, []);
+    const fetchQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res && res.EC === 0) {
+            setListQuiz(res.DT);
+        }
+    };
+
+    const handleChangeFile = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0]);
+        }
+    };
+
+    const handleSubmitQuiz = async () => {
+        // Validate
+        if (!name || !description || !image) {
+            toast.error("Name, Description and Image is required");
+            return;
+        }
+
+        let res = await postCreateNewQuiz(
+            description,
+            name,
+            type?.value,
+            image
+        );
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            setName("");
+            setDescription("");
+            setImage(null);
+            fetchQuiz();
+        } else {
+            toast.error(res.EM);
+        }
+    };
+
     return (
         <>
             <div className="quiz-container">
@@ -61,7 +108,10 @@ const ManageQuiz = (props) => {
                                         <Select
                                             value={type}
                                             options={options}
-                                            placeholder={"Quiz type..."}
+                                            defaultValue={type}
+                                            onChange={(event) => {
+                                                setType(event);
+                                            }}
                                         />
                                     </div>
 
@@ -76,14 +126,19 @@ const ManageQuiz = (props) => {
                                                 handleChangeFile(event);
                                             }}
                                         />
-                                        <button className="my-3 btn btn-warning">
+                                        <button
+                                            onClick={() => {
+                                                handleSubmitQuiz();
+                                            }}
+                                            className="my-3 btn btn-warning"
+                                        >
                                             Save
                                         </button>
                                     </div>
                                 </fieldset>
                             </div>
                             <div className="list-detail">
-                                <TableQuiz />
+                                <TableQuiz listQuiz={listQuiz} />
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>

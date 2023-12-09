@@ -75,6 +75,27 @@ const postCreateNewAnswerForQuestion = async (
     });
 };
 
+const postAssignQuiz = (quizId, userId) => {
+    return axios.post(`api/v1/quiz-assign-to-user`, { quizId, userId });
+};
+
+const postCreateNewQuiz = async (description, name, difficulty, image) => {
+    const data = new FormData();
+    data.append("description", description);
+    data.append("name", name);
+    data.append("difficulty", difficulty);
+    data.append("quizImage", image);
+    return await axios.post("api/v1/quiz", data);
+};
+
+const getQuizWithQA = (quizId) => {
+    return axios.get(`api/v1/quiz-with-qa/${quizId}`);
+};
+
+const postUpsertQA = (data) => {
+    return axios.post(`api/v1/quiz-upsert-qa`, { ...data });
+};
+
 export {
     postCreateNewUser,
     getAllUsers,
@@ -88,4 +109,8 @@ export {
     getAllQuizForAdmin,
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuestion,
+    postAssignQuiz,
+    postCreateNewQuiz,
+    getQuizWithQA,
+    postUpsertQA,
 };
