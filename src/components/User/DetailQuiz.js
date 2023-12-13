@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDataQuiz, postSubmitQuiz } from "../../services/apiService.js";
 import Question from "./Question.js";
 import ModalResult from "./ModalResult.js";
+import RightContent from "./Content/RightContent.js";
 import _ from "lodash";
 import "./DetailQuiz.scss";
 const DetailQuiz = (props) => {
@@ -182,7 +183,12 @@ const DetailQuiz = (props) => {
                         </button>
                     </div>
                 </div>
-                <div className="right-content">count down</div>
+                <div className="right-content">
+                    <RightContent
+                        dataQuiz={dataQuiz}
+                        handleFinishQuiz={handleFinishQuiz}
+                    />
+                </div>
                 <ModalResult
                     show={isShowModalResult}
                     setShow={setIsShowModalResult}
