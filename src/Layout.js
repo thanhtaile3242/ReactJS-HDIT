@@ -9,6 +9,7 @@ import ManageUser from "./components/Admin/Content/ManageUser.js";
 import DashBoard from "./components/Admin/Content/DashBoard.js";
 import Login from "./components/Auth/Login.js";
 import Register from "./components/Auth/Register.js";
+import PrivateRoute from "./routes/PrivateRoute.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz.js";
@@ -30,12 +31,26 @@ const Layout = () => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="users" element={<ListQuiz />} />
+                    <Route
+                        path="users"
+                        element={
+                            <PrivateRoute>
+                                <ListQuiz />
+                            </PrivateRoute>
+                        }
+                    />
                 </Route>
 
                 <Route path="quiz/:id" element={<DetailQuiz />} />
 
-                <Route path="admin" element={<Admin />}>
+                <Route
+                    path="admin"
+                    element={
+                        <PrivateRoute>
+                            <Admin />
+                        </PrivateRoute>
+                    }
+                >
                     <Route index element={<DashBoard />} />
                     <Route path="manage-users" element={<ManageUser />} />
                     <Route path="manage-quizzes" element={<ManageQuiz />} />
@@ -43,6 +58,7 @@ const Layout = () => {
                 </Route>
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="test" element={<PrivateRoute />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <ToastContainer

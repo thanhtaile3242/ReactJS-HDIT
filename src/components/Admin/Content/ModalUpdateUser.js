@@ -32,7 +32,6 @@ const ModalUpdateUser = (props) => {
             setUsername(dataUpdate.username);
             setRole(dataUpdate.role);
             if (dataUpdate.image) {
-                console.log("test");
                 setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 const CountDown = (props) => {
-    const [count, setCount] = useState(6);
+    const [count, setCount] = useState(5 * 60);
 
     useEffect(() => {
         if (count === 0) {
